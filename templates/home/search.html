@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Search results{% endblock title %}
+{% block homeactive %}active{% endblock homeactive %}
+{% block body %}
+<div class="container">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Search results</h1>
+
+    </div>
+</div>
+{% if allPosts|length < 1 %} <div class="container ">
+    <p> <b> OOPS! No search results in {{query}} </b></p>
+    <ul>
+        <li>Please Enter a valid Key word</li>
+        <p> <b>"to" (and any subsequent words) was ignored because we limit queries to 32 words.
+        Standard database operations stop being a useful approach when you start considering large blocks of text.
+        Whereas the examples above can be thought of as operations on a string of characters, full text search looks at
+        the actual words. ... Stemming words, so that “pony” and “ponies” are considered similar.</b></p>
+    </ul>
+    </div>
+    {% endif %}
+    {% for post in allPosts %}
+
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <div
+                    class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-primary">{{post.author}}</strong>
+                        <h3 class="mb-0">{{post.title}}</h3>
+                        <div class="mb-1 text-muted">{{post.timeStamp}}</div>
+                        <p class="card-text mb-auto">{{post.content}}</p>
+                        <div>
+                            <a href="/blog/{{post.slug}}" role="button" class="btn btn-primary">Continue reading</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        {% endfor %}
+        {% endblock body %}
